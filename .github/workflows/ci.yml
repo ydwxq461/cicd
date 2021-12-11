@@ -23,6 +23,11 @@ jobs:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/cache@v2
+      with:
+        path: |
+          ~/cache
+          !~/cache/exclude
+        key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
